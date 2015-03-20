@@ -1,6 +1,7 @@
 ﻿using ColossalFramework.UI;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Reflection;
 using System.Text;
 using System.Threading;
@@ -129,7 +130,7 @@ namespace fys
 
                 foreach (var entry in dict)
                 {
-                    if (entry.Value == lastSearchedName)
+                    if (Match(partial, entry.Value, lastSearchedName))
                     {
                         // this is indeed the first person we found
                         if (firstFoundId.IsEmpty)
@@ -165,6 +166,14 @@ namespace fys
             }
             else
                 return false;
+        }
+
+        private bool Match(bool partial, string instanceName, string searchedFor)
+        {
+            if (partial)
+                return CultureInfo.CurrentCulture.CompareInfo.IndexOf(instanceName, searchedFor, CompareOptions.IgnoreCase) >= 0;
+            else
+                return CultureInfo.CurrentCulture.CompareInfo.Compare(instanceName, searchedFor, CompareOptions.IgnoreCase) == 0;
         }
 
         
