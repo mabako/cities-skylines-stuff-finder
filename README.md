@@ -16,6 +16,6 @@ Hit CTRL-F (search hotkey, hah!), enter the name or a part of the name of what y
 
 # Links
 
-* [on Steam Workshop](http://steamcommunity.com/sharedfiles/filedetails/?id=408705348)
+* [on Steam Workshop](http://steamcommunity.com/sharedfiles/filedetails/?id=411048716)
 * [on /r/CitiesSkylines](https://www.reddit.com/r/CitiesSkylines/comments/2zr1b2/findit_ctrlf_to_find_any_named_citizen_house_car/)
 * [on /r/CitiesSkylinesModding](https://www.reddit.com/r/CitiesSkylinesModding/comments/2zr1eg/findit_ctrlf_to_find_any_named_citizen_house_car/)
