@@ -1,5 +1,4 @@
 ﻿using ICities;
-using System;
 using UnityEngine;
 
 namespace fys
@@ -30,7 +29,6 @@ namespace fys
 
         public override void OnLevelLoaded(LoadMode mode)
         {
-            DebugOutputPanel.AddMessage(ColossalFramework.Plugins.PluginManager.MessageType.Message, "HI");
             panel = new GameObject("FindItSearchPanel", typeof(SearchForSomeoneRandomPanel));
         }
 

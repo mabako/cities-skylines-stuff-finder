@@ -1,9 +1,7 @@
 ﻿using ColossalFramework.UI;
-using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
-using System.Text;
 using System.Threading;
 using UnityEngine;
 
@@ -27,8 +25,6 @@ namespace fys
 
         private void Awake()
         {
-            DebugOutputPanel.AddMessage(ColossalFramework.Plugins.PluginManager.MessageType.Message, "Initializing control...");
-
             inputField = UIView.GetAView().AddUIComponent(typeof(UITextField)) as UITextField;
             inputField.width = 300;
             inputField.height = 45;
@@ -54,7 +50,7 @@ namespace fys
             inputField.color = new Color32(58, 88, 104, 255);
             inputField.disabledColor = new Color32(254, 254, 254, 255);
 
-            inputField.transformPosition = new Vector2(0f, -0.9f);
+            inputField.transformPosition = new Vector2(-0.1f, -0.7f);
 
             inputField.Hide();
             inputField.eventTextSubmitted += searchTextUpdated;
@@ -72,11 +68,23 @@ namespace fys
                 lastSearchPartial = false;
             }
 
-            if(!Search(true))
+            if(Search(false))
             {
-                if (Search(false))
+                // Just found normally.
+            }
+            else
+            {
+                if (Search(true))
                 {
                     lastSearchPartial = true;
+                }
+                else
+                {
+                    // Still not found, welp. What can ya do...
+                    inputField.Focus();
+
+                    // And, finally...
+                    FocusOn(InstanceID.Empty);
                 }
             }
         }
@@ -115,6 +123,9 @@ namespace fys
 
         internal bool Search(bool partial)
         {
+            if (string.IsNullOrEmpty(lastSearchedName))
+                return false;
+
             InstanceID firstFoundId = InstanceID.Empty, usedId = InstanceID.Empty;
             int match = 0;
 
