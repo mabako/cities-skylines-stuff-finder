@@ -108,6 +108,15 @@ namespace fys
             inputField.Focus();
         }
 
+        /// <summary>
+        /// Note: DO NOT DO THIS AT HOME.
+        /// 
+        /// If Colossal Order renames these variables or their type, this'll break compat at runtime. All other changes would show on compile time already as their types are available.
+        /// </summary>
+        /// <typeparam name="T">Type of the variable</typeparam>
+        /// <param name="obj">Instance of which to obtain the variable</param>
+        /// <param name="fieldName">Name of the field</param>
+        /// <returns>Value of the variable, casted to the appropriate type. If it fails, probably some exception... who knows. IT'S MAGIC.</returns>
         private T GetPrivateVariable<T>(object obj, string fieldName)
         {
             return (T)obj.GetType().GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Instance).GetValue(obj);
@@ -181,6 +190,9 @@ namespace fys
 
         private bool Match(bool partial, string instanceName, string searchedFor)
         {
+            if (searchedFor == "*")
+                return true;
+
             if (partial)
                 return CultureInfo.CurrentCulture.CompareInfo.IndexOf(instanceName, searchedFor, CompareOptions.IgnoreCase) >= 0;
             else
