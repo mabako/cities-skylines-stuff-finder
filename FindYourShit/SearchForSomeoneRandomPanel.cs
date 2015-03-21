@@ -146,9 +146,9 @@ namespace fys
             try
             {
                 // do we have someone called <name>?
-                var dict = GetPrivateVariable<Dictionary<InstanceID, string>>(InstanceManager.instance, "m_names");
+				Dictionary<InstanceID, string> dict = GetPrivateVariable<Dictionary<InstanceID, string>>(InstanceManager.instance, "m_names");
 
-                foreach (var entry in dict)
+				foreach (KeyValuePair<InstanceID, string> entry in dict)
                 {
                     if (Match(partial, entry.Value, lastSearchedName))
                     {
