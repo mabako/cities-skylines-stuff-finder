@@ -50,7 +50,16 @@ namespace fys
             inputField.color = new Color32(58, 88, 104, 255);
             inputField.disabledColor = new Color32(254, 254, 254, 255);
 
-            inputField.transformPosition = new Vector2(-0.1f, -0.7f);
+
+			inputField.AlignTo(UIView.Find("FullScreenContainer"),UIAlignAnchor.BottomRight);
+			inputField.relativePosition -= new Vector3(10,10);
+
+			/*
+			alternatively:
+			left edge of field at middle of screen (0), then move to center
+			inputField.transformPosition = new Vector2(0f, -0.7f);
+			inputField.relativePosition -= new Vector3(inputField.width/2, 0);
+			*/
 
             inputField.Hide();
             inputField.eventTextSubmitted += searchTextUpdated;
