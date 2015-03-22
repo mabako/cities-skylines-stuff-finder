@@ -43,7 +43,11 @@ namespace fys
     {
         public override void OnUpdate()
         {
-            SearchForSomeoneRandomPanel panel = FindIt.panel.GetComponent<SearchForSomeoneRandomPanel>();
+            var go = FindIt.panel;
+            if (go == null)
+                return;
+
+            SearchForSomeoneRandomPanel panel = go.GetComponent<SearchForSomeoneRandomPanel>();
             if (panel == null)
                 return;
 
