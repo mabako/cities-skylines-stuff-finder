@@ -18,7 +18,7 @@ namespace fys
         {
             get
             {
-                return "CTRL+F to find anything";
+                return "FindIt: CTRL+F to find anything";
             }
         }
     }
