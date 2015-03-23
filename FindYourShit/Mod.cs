@@ -1,4 +1,5 @@
 ﻿using ICities;
+using System.Reflection;
 using UnityEngine;
 
 namespace fys
@@ -25,17 +26,34 @@ namespace fys
 
     public class FindIt : LoadingExtensionBase
     {
-        public static GameObject panel;
+        internal static GameObject panel;
+        
+        private static CustomRenderManager renderManager;
+        internal static volatile RenderMode renderMode = RenderMode.DEFAULT;
+        private static FastList<IRenderableManager> RenderManagers
+        {
+            get
+            {
+                // If only there was some kind of public API
+                return (FastList<IRenderableManager>)typeof(RenderManager).GetField("m_renderables", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
+            }
+        }
 
         public override void OnLevelLoaded(LoadMode mode)
         {
             panel = new GameObject("FindItSearchPanel", typeof(SearchForSomeoneRandomPanel));
+
+            renderManager = new CustomRenderManager();
+            RenderManagers.Add(renderManager);
         }
 
         public override void OnLevelUnloading()
         {
             GameObject.Destroy(panel);
             panel = null;
+
+            RenderManagers.Remove(renderManager);
+            renderManager = null;
         }
     }
 
@@ -54,11 +72,31 @@ namespace fys
             if (Input.GetKeyDown(KeyCode.Escape))
                 panel.Hide();
             if (Event.current.control && Input.GetKeyDown(KeyCode.F))
-                panel.Toggle();
+            {
+                if (Event.current.shift)
+                {
+                    switch(FindIt.renderMode)
+                    {
+                        case RenderMode.DEFAULT:
+                            FindIt.renderMode = RenderMode.SMALL_ICONS;
+                            break;
+
+                        case RenderMode.SMALL_ICONS:
+                            FindIt.renderMode = RenderMode.BIG_ICONS;
+                            break;
+
+                        case RenderMode.BIG_ICONS:
+                            FindIt.renderMode = RenderMode.DEFAULT;
+                            break;
+                    }
+                }
+                else
+                {
+                    panel.Toggle();
+                }
+            }
             if(Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return))
                 panel.ContinueSearchMayhaps();
-            
-            
         }
     }
 }
