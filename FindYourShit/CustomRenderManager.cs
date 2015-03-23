@@ -30,6 +30,10 @@ namespace fys
 
         public void EndRendering(RenderManager.CameraInfo cameraInfo)
         {
+            // You're free to take this as inspiration, but please do NOT copy this to your own mod and release it on the Steam Workshop.
+            // http://steamcommunity.com/sharedfiles/filedetails/?id=411048716 includes it, please link people to that mod instead.
+
+            // I'm sure you might come up with something more creative.
             if (FindIt.renderMode == RenderMode.DEFAULT)
                 return;
 
