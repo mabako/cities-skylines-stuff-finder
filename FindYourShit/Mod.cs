@@ -95,7 +95,7 @@ namespace fys
                     panel.Toggle();
                 }
             }
-            if(Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return))
+            if (Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown("enter"))
                 panel.ContinueSearchMayhaps();
         }
     }
